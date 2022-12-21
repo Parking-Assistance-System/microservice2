@@ -43,6 +43,17 @@ public class AuthController {
     	return userService.isCarExist(carNo);
     }
     
+    @GetMapping("user/phoneNo")
+    public String getUserPhoneNo(@RequestParam String username) {
+    	
+    	return userService.GetUserPhoneNo(username);
+    	
+    }
+    @GetMapping("user")
+    public User GetUserDetailFromCarNo(@RequestParam String carNo) {
+    	return userService.GetUserDetailFromCarNo(carNo);
+    }
+    
 
     @PostMapping("/otp/check")
     public void check(@RequestBody Otp otp, HttpServletResponse response) {

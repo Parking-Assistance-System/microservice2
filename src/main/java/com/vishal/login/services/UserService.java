@@ -50,6 +50,19 @@ public class UserService {
             throw new BadCredentialsException("Bad credentials.");
         }
     }
+    
+    public String GetUserPhoneNo(String username) {
+    	 Optional<User> o =
+                 userRepository.findUserByUsername(username);
+
+         if(o.isPresent()) {
+        	 User u = o.get();
+        	 return u.getPhonenumber();
+         }
+         else {
+        	 throw new BadCredentialsException("Bad credentials.");
+         }
+    }
 
     public boolean check(Otp otpToValidate) {
         Optional<Otp> userOtp = otpRepository.findOtpByUsername(otpToValidate.getUsername());
@@ -108,6 +121,14 @@ public class UserService {
     	
     }
     
+    public User GetUserDetailFromCarNo(String carNo) {
+    	User o = userRepository.findUserByCarNo(carNo);
+    	if(o == null) {
+    		throw new BadCredentialsException("Bad credentials.");
+    	}
+    	return o;
+    }
+    
     public boolean isCarExist(String carNo) {
 //    	Optional<User> o =
 //                userRepository.findUserByCarNo(carNo);
@@ -115,7 +136,7 @@ public class UserService {
     	System.out.println("before"+carNo+ "Recieved");
     	User o = userRepository.findUserByCarNo(carNo);
     	if(o == null) {
-    		return false;
+    		throw new BadCredentialsException("Bad credentials.");
     	}
     	return true;
     }
